@@ -1,0 +1,6 @@
+package com.artix.networkrequest.Helper;
+
+public class Conntants {
+
+    public static String AUTHHEADER  ="bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwczovL3d3dy5hbGFhZGRpbi5pbi9wcmV2aWV3L2FwaS91c2VydmVyaWZ5TG9naW5WaWFPdHAiLCJpYXQiOjE2NjUxMzkwODIsImV4cCI6MTY3MTEzOTA4MiwibmJmIjoxNjY1MTM5MDgyLCJqdGkiOiJ3Q2lBcFhmbGlndEowQjdpIiwic3ViIjoxLCJwcnYiOiI4N2UwYWYxZWY5ZmQxNTgxMmZkZWM5NzE1M2ExNGUwYjA0NzU0NmFhIn0.vpd3L541-2Otd8hawwM3C7REzQtfzlXJx3gr4obnoyA";
+}
