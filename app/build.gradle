@@ -5,7 +5,9 @@ plugins {
 android {
     namespace 'com.artix.networkrequest'
     compileSdk 32
-
+    packagingOptions {
+        resources.excludes.add("META-INF/*")
+    }
     defaultConfig {
         applicationId "com.artix.networkrequest"
         minSdk 21
@@ -39,6 +41,8 @@ dependencies {
     testImplementation 'junit:junit:4.13.2'
     androidTestImplementation 'androidx.test.ext:junit:1.1.3'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.4.0'
+    implementation 'com.github.HBiSoft:PickiT:2.0.5'
+
 
 
 }

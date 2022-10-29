@@ -5,7 +5,9 @@ plugins {
 android {
     namespace 'com.artix.networkrequest'
     compileSdk 32
-
+    packagingOptions {
+        resources.excludes.add("META-INF/*")
+    }
     defaultConfig {
         minSdk 21
         targetSdk 32
@@ -36,4 +38,12 @@ dependencies {
 
 
     implementation('commons-io:commons-io:2.11.0')
+    //noinspection DuplicatePlatformClasses
+
+    implementation('org.apache.httpcomponents:httpmime:4.3.6') {
+        exclude module: 'httpclient'
+    }
+    implementation 'org.apache.httpcomponents:httpclient:4.3.6'
+
+
 }
