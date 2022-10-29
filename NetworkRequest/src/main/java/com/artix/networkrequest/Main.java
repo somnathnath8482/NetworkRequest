@@ -48,7 +48,7 @@ public class Main {
         this.onSuccess = onSuccess;
     }
 
-    public void CALLGetRequest(String url, @Nullable String authHeader) {
+    public void CALLGetRequest(String url, @Nullable String authHeader, HashMap<String, String> map) {
         authHeader = authHeader == null ? "" : authHeader;
 
         try {
@@ -57,27 +57,15 @@ public class Main {
                     () -> {
 
                         try {
+
+
+
+
                             URL ur_l = new URL(url);
                             URLConnection myURLConnection = ur_l.openConnection();
 
-                          /* HttpsURLConnection myURLConnection = (HttpsURLConnection)ur_l.openConnection();
 
-                          // String userCredentials = "username:password";
-                           // basicAuth = "Basic " + new String(Base64.getEncoder().encode(userCredentials.getBytes()));
-
-                          // myURLConnection.setRequestProperty ("Authorization", "basicAuth HeaDE");
-                           myURLConnection.setRequestMethod("GET");
-                           //myURLConnection.setRequestProperty("Content-Type", "application/x-www-form-urlencoded");
-                          // myURLConnection.setRequestProperty("Content-Length", "" + postData.getBytes().length);
-                           //myURLConnection.setRequestProperty("Content-Language", "en-US");
-                           //myURLConnection.setUseCaches(false);
-                           //myURLConnection.setDoInput(true);
-                           myURLConnection.setDoOutput(true);
-
-*/
-
-                            myURLConnection.setRequestProperty("Authorization",
-                                    finalAuthHeader);
+                            myURLConnection.setRequestProperty("Authorization", finalAuthHeader);
                             InputStream is = myURLConnection.getInputStream();
                             Log.d(TAG, "GetRequest: " + is.toString());
 

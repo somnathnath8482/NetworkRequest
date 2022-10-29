@@ -46,27 +46,33 @@ public class MainActivity extends AppCompatActivity implements OnError, OnSucces
 
     private void Onclick() {
         binding.button.setOnClickListener(view -> {
-            @SuppressLint("HardwareIds") String android_id = Settings.Secure.getString(getContentResolver(),
-                    Settings.Secure.ANDROID_ID);
-            String url = "get-cart/" + android_id;
-            main.CALLGetRequest("https://www.alaaddin.in/preview/api/" + url, Conntants.AUTHHEADER);
+            HashMap<String, String> map = new HashMap<>();
+          /*  map.put("email", "buyer@gmail.com");
+            map.put("password", "123e456");
+            map.put("new_password", "123123123");
+            map.put("password_confirmation", "123123123");*/
+            map.put("postId", "1");
+            main.CALLGetRequest("https://jsonplaceholder.typicode.com/comments?postId=1", Conntants.AUTHHEADER,map);
         });
 
         binding.button2.setOnClickListener(view -> {
             HashMap<String, String> map = new HashMap<>();
             map.put("email", "buyer@gmail.com");
-            main.CallPostRequestJSon("https://www.alaaddin.in/preview/api/resend-code", Conntants.AUTHHEADER, MethodClass.Json_rpc_format(map));
-            // main.CallPostRequestJSon("https://artixdevl.000webhostapp.com/api/test.php",Conntants.AUTHHEADER,map);
+            map.put("password", "123e456");
+            map.put("new_password", "123123123");
+            map.put("password_confirmation", "123123123");
+          main.CallPostRequestJSon("https://artixdevl.000webhostapp.com/api/test.php",Conntants.AUTHHEADER,MethodClass.Json_rpc_format(map));
         });
 
         binding.button3.setOnClickListener(view -> {
             HashMap<String, Object> map = new HashMap<>();
+            map.put("email", "buyer@gmail.com");
             map.put("password", "123e456");
             map.put("new_password", "123123123");
             map.put("password_confirmation", "123123123");
 
-            main.CallPostRequestFormdata("https://www.alaaddin.in/preview/api/user-change-password", Conntants.AUTHHEADER, map);
-            //main.CallPostRequestFormdata("https://artixdevl.000webhostapp.com/api/test.php",Conntants.AUTHHEADER,map);
+
+           main.CallPostRequestFormdata("https://artixdevl.000webhostapp.com/api/test.php",Conntants.AUTHHEADER,map);
 
         });
 
