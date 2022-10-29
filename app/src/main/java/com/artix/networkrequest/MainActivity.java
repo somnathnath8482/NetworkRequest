@@ -46,6 +46,7 @@ public class MainActivity extends AppCompatActivity implements OnError, OnSucces
 
     private void Onclick() {
         binding.button.setOnClickListener(view -> {
+            main.setShow_Progress(true);
             HashMap<String, String> map = new HashMap<>();
           /*  map.put("email", "buyer@gmail.com");
             map.put("password", "123e456");
@@ -126,6 +127,7 @@ public class MainActivity extends AppCompatActivity implements OnError, OnSucces
             map.put("Nadme", "Somnath");
             List<File> f = new ArrayList<>();
             f.add(new File(path));
+            main.setShow_Progress(true);
             main.CAllMultipartRequest("https://artixdevl.000webhostapp.com/api/test.php",
                     Conntants.AUTHHEADER,
                     map
@@ -152,6 +154,7 @@ public class MainActivity extends AppCompatActivity implements OnError, OnSucces
            for (int i=0;i<paths.size();i++){
                f.add(new File(paths.get(i)));
            }
+            main.setShow_Progress(true);
             main.CAllMultipartRequest("https://artixdevl.000webhostapp.com/api/test.php",
                     Conntants.AUTHHEADER,
                     map

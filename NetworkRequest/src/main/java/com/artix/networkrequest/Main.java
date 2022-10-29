@@ -1,7 +1,11 @@
 package com.artix.networkrequest;
 
 import android.app.Activity;
+import android.app.Dialog;
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.util.Log;
+import android.widget.ProgressBar;
 
 import androidx.annotation.Nullable;
 
@@ -41,6 +45,8 @@ public class Main {
 
     private OnError onError;
     private OnSuccess onSuccess;
+private  boolean Show_Progress = false;
+    private Dialog progressDialog;
 
     public Main(Activity activity, OnError onError, OnSuccess onSuccess) {
         this.activity = activity;
@@ -48,7 +54,40 @@ public class Main {
         this.onSuccess = onSuccess;
     }
 
+    private void loader() {
+        if (progressDialog != null) {
+            progressDialog.dismiss();
+            progressDialog = null;
+        }
+      /*  progressDialog = new ProgressDialog(context, ProgressDialog.THEME_HOLO_LIGHT);
+        progressDialog.setMessage("Please Wait...");
+        progressDialog.setCancelable(false);*/
+
+        progressDialog = new Dialog(activity);
+        progressDialog.setCancelable(false);
+        progressDialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+        progressDialog.setContentView(R.layout.progress_bar);
+
+
+    }
+
+    public void setShow_Progress(boolean show_Progress) {
+        Show_Progress = show_Progress;
+    }
+
     public void CALLGetRequest(String url, @Nullable String authHeader, HashMap<String, String> map) {
+
+
+        if (Show_Progress) {
+            if (progressDialog==null){
+                loader();
+                progressDialog.show();
+            }else{
+                progressDialog.dismiss();
+                progressDialog=null;
+            }
+        }
+
         authHeader = authHeader == null ? "" : authHeader;
 
         try {
@@ -75,11 +114,21 @@ public class Main {
                             String theString = writer.toString();
                             activity.runOnUiThread(() -> {
                                 onSuccess.OnSucces(url, "200", theString);
+                                if (progressDialog!=null){
+                                    progressDialog.dismiss();
+                                    progressDialog=null;
+                                    Show_Progress  = false;
+                                }
                             });
                         } catch (IOException e) {
 
                             activity.runOnUiThread(() -> {
                                 onError.OnEror(url, 1 + "", e.getMessage());
+                                if (progressDialog!=null){
+                                    progressDialog.dismiss();
+                                    progressDialog=null;
+                                    Show_Progress  = false;
+                                }
                             });
                         }
 
@@ -87,12 +136,29 @@ public class Main {
             ).start();
         } catch (Exception e) {
             onError.OnEror(url, 1 + "", e.getMessage());
+            if (progressDialog!=null){
+                progressDialog.dismiss();
+                progressDialog=null;
+                Show_Progress  = false;
+            }
         }
 
     }
 
 
     public void CallPostRequestJSon(String url, @Nullable String authHeader, JSONObject object) {
+
+        if (Show_Progress) {
+            if (progressDialog==null){
+                loader();
+                progressDialog.show();
+            }else{
+                progressDialog.dismiss();
+                progressDialog=null;
+
+            }
+        }
+
         authHeader = authHeader == null ? "" : authHeader;
 
         try {
@@ -128,11 +194,21 @@ public class Main {
                             String theString = writer.toString();
                             activity.runOnUiThread(() -> {
                                 onSuccess.OnSucces(url, "200", theString);
+                                if (progressDialog!=null){
+                                    progressDialog.dismiss();
+                                    progressDialog=null;
+                                    Show_Progress  = false;
+                                }
                             });
                         } catch (IOException e) {
 
                             activity.runOnUiThread(() -> {
                                 onError.OnEror(url, 1 + "", e.getMessage());
+                                if (progressDialog!=null){
+                                    progressDialog.dismiss();
+                                    progressDialog=null;
+                                    Show_Progress  = false;
+                                }
                             });
                         }
 
@@ -140,12 +216,28 @@ public class Main {
             ).start();
         } catch (Exception e) {
             onError.OnEror(url, 1 + "", e.getMessage());
+            if (progressDialog!=null){
+                progressDialog.dismiss();
+                progressDialog=null;
+                Show_Progress  = false;
+            }
         }
 
 
     }
 
     public void CallPostRequestFormdata(String url, @Nullable String authHeader, HashMap<String, Object> map) {
+
+        if (Show_Progress) {
+            if (progressDialog==null){
+                loader();
+                progressDialog.show();
+            }else{
+                progressDialog.dismiss();
+                progressDialog=null;
+            }
+        }
+
         authHeader = authHeader == null ? "" : authHeader;
 
         try {
@@ -191,11 +283,21 @@ public class Main {
                             String theString = writer.toString();
                             activity.runOnUiThread(() -> {
                                 onSuccess.OnSucces(url, "200", theString);
+                                if (progressDialog!=null){
+                                    progressDialog.dismiss();
+                                    progressDialog=null;
+                                    Show_Progress  = false;
+                                }
                             });
                         } catch (IOException e) {
 
                             activity.runOnUiThread(() -> {
                                 onError.OnEror(url, 1 + "", e.getMessage());
+                                if (progressDialog!=null){
+                                    progressDialog.dismiss();
+                                    progressDialog=null;
+                                    Show_Progress  = false;
+                                }
                             });
                         }
 
@@ -203,12 +305,27 @@ public class Main {
             ).start();
         } catch (Exception e) {
             onError.OnEror(url, 1 + "", e.getMessage());
+            if (progressDialog!=null){
+                progressDialog.dismiss();
+                progressDialog=null;
+                Show_Progress  = false;
+            }
         }
 
 
     }
 
     public void CAllMultipartRequest(String url, @Nullable String authHeader, HashMap<String, Object> map, List<File> f, String file_key) {
+
+        if (Show_Progress) {
+            if (progressDialog==null){
+                loader();
+                progressDialog.show();
+            }else{
+                progressDialog.dismiss();
+                progressDialog=null;
+            }
+        }
         authHeader = authHeader == null ? "" : authHeader;
 
         try {
@@ -259,11 +376,21 @@ public class Main {
                             String theString = writer.toString();
                             activity.runOnUiThread(() -> {
                                 onSuccess.OnSucces(url, "200", theString);
+                                if (progressDialog!=null){
+                                    progressDialog.dismiss();
+                                    progressDialog=null;
+                                    Show_Progress  = false;
+                                }
                             });
                         } catch (Exception e) {
 
                             activity.runOnUiThread(() -> {
                                 onError.OnEror(url, 1 + "", e.getMessage());
+                                if (progressDialog!=null){
+                                    progressDialog.dismiss();
+                                    progressDialog=null;
+                                    Show_Progress  = false;
+                                }
                             });
                         }
 
@@ -271,6 +398,11 @@ public class Main {
             ).start();
         } catch (Exception e) {
             onError.OnEror(url, 1 + "", e.getMessage());
+            if (progressDialog!=null){
+                progressDialog.dismiss();
+                progressDialog=null;
+                Show_Progress  = false;
+            }
         }
     }
 }
