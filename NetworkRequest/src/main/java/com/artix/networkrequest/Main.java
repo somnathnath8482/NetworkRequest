@@ -30,16 +30,17 @@ import java.net.URL;
 import java.net.URLConnection;
 import java.net.URLEncoder;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import javax.net.ssl.HttpsURLConnection;
 
 public class Main {
     private static final String TAG = "networkrequest";
-    Activity activity;
+    private Activity activity;
 
-    OnError onError;
-    OnSuccess onSuccess;
+    private OnError onError;
+    private OnSuccess onSuccess;
 
     public Main(Activity activity, OnError onError, OnSuccess onSuccess) {
         this.activity = activity;
@@ -219,7 +220,7 @@ public class Main {
 
     }
 
-    public void CAllMultipartRequest(String url, @Nullable String authHeader, HashMap<String, Object> map,File f) {
+    public void CAllMultipartRequest(String url, @Nullable String authHeader, HashMap<String, Object> map, List<File> f, String file_key) {
         authHeader = authHeader == null ? "" : authHeader;
 
         try {
@@ -232,17 +233,28 @@ public class Main {
                             URL ur_l = new URL(url);
                             HttpPost uploadFile = new HttpPost(url);
                             MultipartEntityBuilder builder = MultipartEntityBuilder.create();
-                            builder.addTextBody("field1", "yes", ContentType.TEXT_PLAIN);
+                            uploadFile.addHeader("Authorization", finalAuthHeader);
+
+                            for ( Map.Entry<String, Object> entry : map.entrySet()) {
+                                String key = entry.getKey();
+                                String tab = entry.getValue().toString();
+                                builder.addTextBody(key, tab);
+                            }
                            // myURLConnection.setRequestProperty("Authorization", finalAuthHeader);
 
 
-                            builder.addBinaryBody(
-                                    "file",
-                                    new FileInputStream(f),
-                                    ContentType.APPLICATION_OCTET_STREAM,
-                                    f.getName()
-                            );
-
+                            if (f.size()>0){
+                                for (int i=0; i<f.size(); i++){
+                                    if (f!=null && f.get(i).isFile()) {
+                                        builder.addBinaryBody(
+                                                file_key,
+                                                new FileInputStream(f.get(i)),
+                                                ContentType.APPLICATION_OCTET_STREAM,
+                                                f.get(i).getName()
+                                        );
+                                    }
+                                }
+                            }
                             HttpEntity multipart = builder.build();
                             uploadFile.setEntity(multipart);
                             CloseableHttpResponse response = httpClient.execute(uploadFile);

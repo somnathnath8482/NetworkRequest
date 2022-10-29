@@ -2,6 +2,7 @@ package com.artix.networkrequest;
 
 import android.annotation.SuppressLint;
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.provider.Settings;
@@ -22,6 +23,7 @@ import com.hbisoft.pickit.PickiTCallbacks;
 import java.io.File;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 
 public class MainActivity extends AppCompatActivity implements OnError, OnSuccess, PickiTCallbacks {
     ActivityMainBinding binding;
@@ -69,9 +71,9 @@ public class MainActivity extends AppCompatActivity implements OnError, OnSucces
         });
 
         binding.button4.setOnClickListener(view -> {
-            Intent intent = new Intent();
-            intent.setType("image/*");
-            intent.setAction(Intent.ACTION_GET_CONTENT);
+            Intent intent = new Intent(Intent.ACTION_GET_CONTENT);
+            intent.setType("*/*");
+            intent.putExtra(Intent.EXTRA_ALLOW_MULTIPLE,true);
             startActivityForResult(Intent.createChooser(intent, "Select Picture"), 100);
         });
     }
@@ -112,11 +114,18 @@ public class MainActivity extends AppCompatActivity implements OnError, OnSucces
         if (wasSuccessful) {
             HashMap<String, Object> map = new HashMap<>();
             map.put("Name", "Somnath");
+            map.put("Namcvxve", "Somnath");
+            map.put("Naxme", "Somsnath");
+            map.put("Namcsce", "Somnath");
+            map.put("Nadme", "Somnath");
+            List<File> f = new ArrayList<>();
+            f.add(new File(path));
             main.CAllMultipartRequest("https://artixdevl.000webhostapp.com/api/test.php",
                     Conntants.AUTHHEADER,
                     map
                     ,
-                    new File(path));
+                    f,
+                    "img");
 
 
         }
@@ -126,16 +135,43 @@ public class MainActivity extends AppCompatActivity implements OnError, OnSucces
     @Override
     public void PickiTonMultipleCompleteListener(ArrayList<String> paths, boolean wasSuccessful, String Reason) {
 
+        if (wasSuccessful) {
+            HashMap<String, Object> map = new HashMap<>();
+            map.put("Name", "Somnath");
+            map.put("Namcvxve", "Somnath");
+            map.put("Naxme", "Somsnath");
+            map.put("Namcsce", "Somnath");
+            map.put("Nadme", "Somnath");
+            List<File> f = new ArrayList<>();
+           for (int i=0;i<paths.size();i++){
+               f.add(new File(paths.get(i)));
+           }
+            main.CAllMultipartRequest("https://artixdevl.000webhostapp.com/api/test.php",
+                    Conntants.AUTHHEADER,
+                    map
+                    ,
+                    f,
+                    "img[]");
+
+
+        }
+
     }
 
     @Override
-    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        if (resultCode == RESULT_OK) {
+        if(resultCode == RESULT_OK) {
+            if(null != data) { // checking empty selection
+                if(null != data.getClipData()) { // checking multiple selection or not
+                        //pickiT.getPath(data.getClipData(), Build.VERSION.SDK_INT);
+                        pickiT.getMultiplePaths(data.getClipData());
 
-            pickiT.getPath(data.getData(), Build.VERSION.SDK_INT);
-
-
+                } else {
+                    Uri uri = data.getData();
+                    pickiT.getPath(uri, Build.VERSION.SDK_INT);
+                }
+            }
         }
     }
 
