@@ -144,7 +144,10 @@ HashMap<String, Object> map = new HashMap<>();
 ```
 <h2 align="center"><b>** note while multiple file the key must be with [] signe , if single file then key may be any string;</b></h2>
 
-
+To Enable Progressbar Use
+```
+main.SetProgressBar(true);
+```
 Please do test if any issue happen plese mail report issue or mail to jarves8484@gmail.com
 Thank You Injot it 
 
