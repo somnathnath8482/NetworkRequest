@@ -1,7 +1,7 @@
 # NetworkRequest 
 [![](https://jitpack.io/v/somnathnath8482/NetworkRequest.svg)](https://jitpack.io/#somnathnath8482/NetworkRequest)
 
-<p align="center">An Android library that Helps You to Call Different Type of Network Request("GET","POST") </p>
+<p align="center">An Android library that Helps You to Call Different Type of Network Request("GET","POST","Multipart" etc..) </p>
 
 <p align="center"><img width= "200" src="https://www.globalsign.com/application/files/3916/0397/8810/iStock-833750208.png"></p>
 
